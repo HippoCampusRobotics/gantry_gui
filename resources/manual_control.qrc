@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="">
+    <file>svg/down.svg</file>
+    <file>svg/left.svg</file>
+    <file>svg/right.svg</file>
+    <file>svg/up.svg</file>
+    <file>svg/msl.svg</file>
+  </qresource>
+</RCC>

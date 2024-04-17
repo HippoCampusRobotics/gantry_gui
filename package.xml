@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>gantry_gui</name>
+  <version>0.0.0</version>
+  <description>The gantry_gui package</description>
+
+  <maintainer email="thies.lennart.alff@tuhh.de">Thies Lennart Alff</maintainer>
+  <license>GPLv2</license>
+
+  <url type="website">hippocampusrobotics.github.io/docs</url>
+
+  <author email="thies.lennart.alff@tuhh.de">Thies Lennart Alff</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>gantry_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>qtbase5-dev</depend>
+  <depend>qtdeclarative5-dev</depend>
+  <depend>libqt5-core</depend>
+  <depend>libqt5-widgets</depend>
+  <depend>libqt5-gui</depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+
+
