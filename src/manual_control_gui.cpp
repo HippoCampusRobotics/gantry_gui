@@ -44,9 +44,8 @@ void ManualControlGUI::Init() {
   config_widget_ = new ConfigWidget(shared_from_this(),
                                     {Axis::kX, Axis::kY, Axis::kZ}, this);
   vlayout->addWidget(config_widget_);
-  vlayout->addWidget(new GetSetWidget(shared_from_this(), this));
   vlayout->addStretch();
-  // emit config_widget_->LoadAllRequested();
+  emit config_widget_->LoadAllRequested();
 
   hlayout->addLayout(vlayout);
   hlayout->addStretch();

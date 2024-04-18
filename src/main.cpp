@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <rclcpp/experimental/executors/events_executor/events_executor.hpp>
 
-#include "../resources/ui_manual_control.h"
+// #include "../resources/ui_manual_control.h"
 #include "gantry_gui/manual_control_gui.hpp"
 #include "gantry_gui/manual_control_node.hpp"
 #include "gantry_gui/widgets/control_pad.hpp"

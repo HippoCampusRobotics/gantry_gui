@@ -143,11 +143,17 @@ inline std::string get_max_speed_service_name(Axis axis) {
 inline std::string set_max_speed_service_name(Axis axis) {
   return name_prefix(axis) + "/set_max_speed";
 }
+inline std::string reset_max_speed_service_name(Axis axis) {
+  return name_prefix(axis) + "/reset_max_speed";
+}
 inline std::string get_max_accel_service_name(Axis axis) {
   return name_prefix(axis) + "/get_max_accel";
 }
 inline std::string set_max_accel_service_name(Axis axis) {
   return name_prefix(axis) + "/set_max_accel";
+}
+inline std::string reset_max_accel_service_name(Axis axis) {
+  return name_prefix(axis) + "/reset_max_accel";
 }
 inline std::string get_max_decel_service_name(Axis axis) {
   return name_prefix(axis) + "/get_max_decel";

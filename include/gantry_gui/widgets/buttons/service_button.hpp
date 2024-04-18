@@ -26,6 +26,12 @@ class ServiceButton : public QPushButton {
     signal_ = new ServiceButtonSignal();
     connect(signal_, &ServiceButtonSignal::TimedOut, this,
             &ServiceButton::OnTimeout);
+    connect(signal_,
+            qOverload<typename ServiceT::Response::SharedPtr>(
+                &ServiceButtonSignal::ResponseReceived),
+            this, [this](typename ServiceT::Response::SharedPtr) {
+              setEnabled(true);
+            });
   }
   ~ServiceButton() { delete signal_; }
   void CreateClient(const std::string &name) {
@@ -47,14 +53,12 @@ class ServiceButton : public QPushButton {
         [this](typename rclcpp::Client<ServiceT>::SharedFuture future) {
           signal_->ResponseReceived(future.get());
           CancelTimer();
-          setDisabled(false);
         };
     typename rclcpp::Client<ServiceT>::SharedFuture future =
         client_->async_send_request(request, client_callback).future;
     assert(timer_.use_count() <= 1);
     timer_ = node_->create_wall_timer(
         std::chrono::milliseconds(1000), [this, future]() {
-          setDisabled(false);
           CancelTimer();
           if (future.wait_for(std::chrono::milliseconds(0)) !=
               std::future_status::ready) {
@@ -62,7 +66,10 @@ class ServiceButton : public QPushButton {
           }
         });
   };
-  void OnTimeout() { show_error("Service timed out", timeout_text(client_)); }
+  void OnTimeout() {
+    show_error("Service timed out", timeout_text(client_));
+    setDisabled(false);
+  }
 
   typename ServiceT::Request::SharedPtr CreateRequest() {
     return std::make_shared<typename ServiceT::Request>();

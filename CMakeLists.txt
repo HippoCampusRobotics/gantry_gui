@@ -44,13 +44,11 @@ include_directories(
 
 set(exec_name manual_control)
 add_executable(${exec_name}
-  #src/manual_control.cpp
   include/gantry_gui/manual_control_gui.hpp
   src/manual_control_gui.cpp
   src/manual_control_node.cpp
   src/main.cpp
   include/gantry_gui/common.hpp
-  include/gantry_gui/widgets/double_spinbox_frame.hpp
   include/gantry_gui/widgets/homing_frame.hpp
   include/gantry_gui/widgets/control_pad.hpp
   include/gantry_gui/widgets/mode_widget.hpp
@@ -62,7 +60,6 @@ add_executable(${exec_name}
   include/gantry_gui/widgets/buttons/set_float_button.hpp
   include/gantry_gui/widgets/buttons/trigger_button.hpp
   include/gantry_gui/widgets/get_set_widget.hpp
-  src/widgets/double_spinbox_frame.cpp
   src/widgets/homing_frame.cpp
   src/widgets/control_pad.cpp
   src/widgets/mode_widget.cpp
@@ -72,7 +69,6 @@ add_executable(${exec_name}
   src/widgets/buttons/get_float_button.cpp
   src/widgets/buttons/set_float_button.cpp
   src/widgets/buttons/trigger_button.cpp
-  resources/manual_control.ui
   resources/manual_control.qrc
 )
 target_link_libraries(${exec_name}

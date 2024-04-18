@@ -12,7 +12,8 @@ class SetFloatButton : public ServiceButton<gantry_msgs::srv::SetFloatDrive> {
  public:
   SetFloatButton(rclcpp::Node::SharedPtr _node, QWidget *parent = nullptr)
       : ServiceButton(_node, parent) {
-    setIcon(QIcon::fromTheme("document-save"));
+    // setIcon(QIcon::fromTheme("document-save"));
+    setText("Set");
   }
 };
 }  // namespace gantry_gui

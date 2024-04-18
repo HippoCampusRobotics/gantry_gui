@@ -11,7 +11,8 @@ class GetFloatButton : public ServiceButton<gantry_msgs::srv::GetFloatDrive> {
  public:
   GetFloatButton(rclcpp::Node::SharedPtr _node, QWidget *parent = nullptr)
       : ServiceButton(_node, parent) {
-    setIcon(QIcon::fromTheme("view-refresh"));
+    // setIcon(QIcon::fromTheme("view-refresh"));
+    setText("Get");
   }
 };
 }  // namespace gantry_gui

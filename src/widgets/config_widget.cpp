@@ -39,26 +39,35 @@ ConfigWidget::ConfigWidget(rclcpp::Node::SharedPtr _node,
     //       [=](double value) { emit SetHomeClicked(axis, value); });
     layout->addWidget(homing_widget, row, col++);
 
-    DoubleSpinboxFrame *max_speed = new DoubleSpinboxFrame(node_, this);
-    max_speed_widgets_[axis] = max_speed;
-    max_speed->InitLoadClient(get_max_speed_service_name(axis));
-    max_speed->InitSaveClient(set_max_speed_service_name(axis));
-    layout->addWidget(max_speed, row, col++);
+    layout->addWidget(CreateMaxSpeedWidget(axis), row, col++);
 
-    DoubleSpinboxFrame *max_accel = new DoubleSpinboxFrame(node_, this);
-    max_accel_widgets_[axis] = max_accel;
-    max_accel->InitLoadClient(get_max_accel_service_name(axis));
-    max_accel->InitSaveClient(set_max_accel_service_name(axis));
-    layout->addWidget(max_accel, row, col++);
+    layout->addWidget(CreateMaxAccelWidget(axis), row, col++);
 
     layout->setSizeConstraint(QLayout::SetFixedSize);
 
-    connect(this, &ConfigWidget::LoadAllRequested, this,
-            [max_speed, max_accel]() {
-              max_speed->CallLoadService();
-              max_accel->CallLoadService();
-            });
+    connect(this, &ConfigWidget::LoadAllRequested, this, [=]() {
+      max_speed_widgets_[axis]->CallGet();
+      max_accel_widgets_[axis]->CallGet();
+    });
   }
+}
+
+GetSetWidget *ConfigWidget::CreateMaxSpeedWidget(Axis _axis) {
+  GetSetWidget *widget = new GetSetWidget(node_, this);
+  max_speed_widgets_[_axis] = widget;
+  widget->SetGetButtonServiceName(get_max_speed_service_name(_axis));
+  widget->SetSetButtonServiceName(set_max_speed_service_name(_axis));
+  widget->SetResetButtonServiceName(reset_max_speed_service_name(_axis));
+  return widget;
+}
+
+GetSetWidget *ConfigWidget::CreateMaxAccelWidget(Axis _axis) {
+  GetSetWidget *widget = new GetSetWidget(node_, this);
+  max_accel_widgets_[_axis] = widget;
+  widget->SetGetButtonServiceName(get_max_accel_service_name(_axis));
+  widget->SetSetButtonServiceName(set_max_accel_service_name(_axis));
+  widget->SetResetButtonServiceName(reset_max_speed_service_name(_axis));
+  return widget;
 }
 
 }  // namespace gantry_gui
