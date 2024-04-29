@@ -66,7 +66,7 @@ GetSetWidget *ConfigWidget::CreateMaxAccelWidget(Axis _axis) {
   max_accel_widgets_[_axis] = widget;
   widget->SetGetButtonServiceName(get_max_accel_service_name(_axis));
   widget->SetSetButtonServiceName(set_max_accel_service_name(_axis));
-  widget->SetResetButtonServiceName(reset_max_speed_service_name(_axis));
+  widget->SetResetButtonServiceName(reset_max_accel_service_name(_axis));
   return widget;
 }
 
