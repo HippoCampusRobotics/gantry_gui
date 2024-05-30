@@ -2,8 +2,6 @@
 
 #include "gantry_gui/widgets/config_widget.hpp"
 #include "gantry_gui/widgets/control_pad.hpp"
-#include "gantry_gui/widgets/get_set_widget.hpp"
-#include "gantry_gui/widgets/homing_frame.hpp"
 #include "gantry_gui/widgets/mode_widget.hpp"
 #include "gantry_gui/widgets/position_widget.hpp"
 
@@ -16,6 +14,14 @@ void ManualControlGUI::Init() {
   ModeWidget *mode_widget = new ModeWidget(this);
   vlayout->addWidget(mode_widget);
   connect(mode_widget, &ModeWidget::ModeChanged, this,
+          [this](Mode mode, double value) {
+            mode_ = mode;
+            mode_value_ = value;
+            if (mode_ != Mode::kVelocity) {
+              StopVelocityTimers();
+            }
+          });
+  connect(mode_widget, &ModeWidget::ValueChanged, this,
           [this](Mode mode, double value) {
             mode_ = mode;
             mode_value_ = value;
@@ -140,11 +146,9 @@ void ManualControlGUI::MoveDistance(Axis _axis, double _distance) {
 
 void ManualControlGUI::MoveVelocity(Axis _axis, double _velocity) {
   if (velocity_timers_[_axis]) {
+    // make sure that no existing timer cannot do no harm never ever
     velocity_timers_[_axis]->cancel();
   }
-  assert(
-      (velocity_timers_[_axis].use_count() <= 1) &&
-      "There should not be more than one reference. Indicates a memory leak.");
   velocity_timers_[_axis] =
       create_wall_timer(std::chrono::milliseconds(20),
                         [this, axis = _axis, velocity = _velocity]() {

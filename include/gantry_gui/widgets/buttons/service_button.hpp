@@ -56,7 +56,9 @@ class ServiceButton : public QPushButton {
         };
     typename rclcpp::Client<ServiceT>::SharedFuture future =
         client_->async_send_request(request, client_callback).future;
-    assert(timer_.use_count() <= 1);
+    if (timer_) {
+      timer_->cancel();
+    }
     timer_ = node_->create_wall_timer(
         std::chrono::milliseconds(1000), [this, future]() {
           CancelTimer();

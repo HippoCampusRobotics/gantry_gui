@@ -96,9 +96,9 @@ void HomingFrame::CallGoHomeService() {
   FutureT future =
       go_home_client_->async_send_request(req, client_callback).future;
 
-  assert(
-      (go_home_timer_.use_count() <= 1) &&
-      "There should not be more than one reference. Indicates a memory leak.");
+  if (go_home_timer_) {
+    go_home_timer_->cancel();
+  }
   go_home_timer_ = node_->create_wall_timer(timeout_duration, [this, future]() {
     cancel_timer(go_home_timer_);
     if (future.wait_for(zero_duration) != std::future_status::ready) {
@@ -127,8 +127,9 @@ void HomingFrame::CallSetHomeService(double _value) {
   };
   FutureT future =
       set_home_client_->async_send_request(req, client_callback).future;
-  assert((set_home_timer_.use_count() <= 1) &&
-         "This should have been the only reference. Indicates a memory leak.");
+  if (set_home_timer_) {
+    set_home_timer_->cancel();
+  }
   set_home_timer_ =
       node_->create_wall_timer(timeout_duration, [this, future]() {
         cancel_timer(set_home_timer_);

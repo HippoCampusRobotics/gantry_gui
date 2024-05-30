@@ -33,6 +33,9 @@ ModeWidget::ModeWidget(QWidget *parent) : QGroupBox(parent) {
   distance_spinbox_->setSingleStep(0.001);
   distance_spinbox_->setValue(0.1);
   distance_spinbox_->setEnabled(false);
+  connect(distance_spinbox_, qOverload<double>(&QDoubleSpinBox::valueChanged),
+          this,
+          [this](double value) { emit ValueChanged(Mode::kDistance, value); });
   hbox->addWidget(distance_spinbox_);
 
   distance_unit_label = new QLabel("[m]", this);

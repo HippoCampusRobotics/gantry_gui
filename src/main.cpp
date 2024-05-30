@@ -2,13 +2,7 @@
 #include <QApplication>
 #include <rclcpp/experimental/executors/events_executor/events_executor.hpp>
 
-// #include "../resources/ui_manual_control.h"
 #include "gantry_gui/manual_control_gui.hpp"
-#include "gantry_gui/manual_control_node.hpp"
-#include "gantry_gui/widgets/control_pad.hpp"
-#include "gantry_gui/widgets/double_spinbox_frame.hpp"
-#include "gantry_gui/widgets/homing_frame.hpp"
-#include "gantry_gui/widgets/mode_widget.hpp"
 
 int main(int argc, char** argv) {
   QApplication app(argc, argv);

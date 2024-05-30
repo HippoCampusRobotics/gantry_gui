@@ -110,9 +110,9 @@ void DoubleSpinboxFrame::CallLoadService() {
   FutureT future =
       load_client_->async_send_request(req, client_callback).future;
 
-  assert(
-      (load_timer_.use_count() <= 1) &&
-      "There should not be more than one reference. Indicates a memory leak.");
+  if (load_timer_) {
+    load_timer_->cancel();
+  }
   load_timer_ = node_->create_wall_timer(timeout_duration, [this, future]() {
     cancel_timer(load_timer_);
     if (future.wait_for(zero_duration) != std::future_status::ready) {
@@ -141,9 +141,9 @@ void DoubleSpinboxFrame::CallSaveService(double _value) {
   };
   FutureT future =
       save_client_->async_send_request(req, client_callback).future;
-  assert(
-      (save_timer_.use_count() <= 1) &&
-      "There should not be more than one reference. Indicates a memory leak.");
+  if (save_timer_) {
+    save_timer_->cancel();
+  }
   save_timer_ = node_->create_wall_timer(timeout_duration, [this, future]() {
     cancel_timer(save_timer_);
     if (future.wait_for(zero_duration) != std::future_status::ready) {
