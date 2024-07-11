@@ -2,8 +2,8 @@
 Changelog for package gantry_gui
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2024-07-11)
+------------------
 * fixed minor issues
   - missing value changed signal for distance/velocity
   - fixed race condition for timer assertions. or rather worked around it.
