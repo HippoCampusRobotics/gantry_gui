@@ -19,6 +19,7 @@
   <depend>std_srvs</depend>
   <depend>qtbase5-dev</depend>
   <depend>qtdeclarative5-dev</depend>
+  <depend>qttools5-dev</depend>
   <depend>libqt5-core</depend>
   <depend>libqt5-widgets</depend>
   <depend>libqt5-gui</depend>
