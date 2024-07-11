@@ -2,8 +2,8 @@
 Changelog for package gantry_gui
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2024-07-11)
+------------------
 * added missing qt dependency in package.xml
 * Contributors: Thies Lennart Alff
 
